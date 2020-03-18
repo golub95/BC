@@ -38,20 +38,4 @@ page 50103 "Customer Status Lists"
 
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-
-                trigger OnAction();
-                begin
-
-                end;
-            }
-        }
-    }
 }

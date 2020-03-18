@@ -4,7 +4,7 @@ tableextension 50111 "SalesHeaderArchiveExtension" extends "Sales Header Archive
     {
         field(50100; "Customer Status"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
             TableRelation = "Customer Status".Code;
         }
     }

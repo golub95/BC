@@ -22,7 +22,7 @@ pageextension 50105 "ExtPostedPurchaseReceiptSub" extends "Posted Purchase Rcpt.
     var
         userSetup: Record "User Setup";
     begin
-        userSetup.Get(Database.UserId);
+        userSetup.Get(Database.UserId());
         IsAdmin := userSetup.IsAdmin;
     end;
 

@@ -3,12 +3,12 @@
   "name": "Golub_Upadate",
   "publisher": "Josip Golubović",
   "version": "1.0.0.0",
-  "brief": "",
-  "description": "",
-  "privacyStatement": "",
-  "EULA": "",
-  "help": "",
-  "url": "",
+  "brief": "sasd",
+  "description": "ddd",
+  "privacyStatement": "http://www.test.com",
+  "EULA": "http://www.test.com",
+  "help": "http://www.test.com",
+  "url": "http://www.test.com",
   "logo": "./logo/golub.png",
   "dependencies": [
     {
@@ -25,6 +25,9 @@
     }
   ],
   "screenshots": [],
+  "features": [
+    "TranslationFile"
+  ],
   "platform": "15.0.0.0",
   "idRanges": [
     {

@@ -41,21 +41,4 @@ xmlport 50100 "MyXmlport"
             }
         }
     }
-
-    requestpage
-    {
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-
-                }
-            }
-        }
-    }
-
-    var
-        myInt: Integer;
 }

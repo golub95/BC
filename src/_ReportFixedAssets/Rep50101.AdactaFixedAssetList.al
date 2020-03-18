@@ -13,13 +13,13 @@ report 50101 "Adacta Fixed Asset - List"
             DataItemTableView = SORTING("No.");
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "FA Class Code", "FA Subclass Code", "Budgeted Asset";
-            column(CompanyName; COMPANYPROPERTY.DisplayName)
+            column(CompanyName; COMPANYPROPERTY.DisplayName())
             {
             }
             column(DeprBookText; DeprBookText)
             {
             }
-            column(FATableCaptionFAFilter; TableCaption + ': ' + FAFilter)
+            column(FATableCaptionFAFilter; TableCaption() + ': ' + FAFilter)
             {
             }
             column(FAFilter; FAFilter)
@@ -203,29 +203,28 @@ report 50101 "Adacta Fixed Asset - List"
                 trigger OnPreDataItem()
                 begin
                     SetRange("FA No.", "Fixed Asset"."No.");
-                    SetRange("Depreciation Book Code", DeprBookCode);
+                    SetRange("Depreciation Book Code", DeprBookCodes);
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
                 if Inactive then
-                    CurrReport.Skip;
+                    CurrReport.Skip();
                 if "Main Asset/Component" <> "Main Asset/Component"::" " then
-                    ComponentFieldname := FieldCaption("Component of Main Asset")
+                    ComponentFieldname := CopyStr(FieldCaption("Component of Main Asset"), 1, MaxStrLen(ComponentFieldname))
                 else
                     ComponentFieldname := '';
                 if "Budgeted Asset" then
-                    BudgetedAssetFieldname := FieldCaption("Budgeted Asset")
+                    BudgetedAssetFieldname := CopyStr(FieldCaption("Budgeted Asset"), 1, MaxStrLen(BudgetedAssetFieldname))
                 else
                     BudgetedAssetFieldname := '';
-                if PrintOnlyOnePerPage then
+                if PrintOnlyOnePerPages then
                     PageGroupNo := PageGroupNo + 1;
 
                 ExternalCPT := '';
-                if ("External No." <> '') then begin
+                if ("External No." <> '') then
                     ExternalCPT := ExternalNumberTextLbl;
-                end;
             end;
 
             trigger OnPreDataItem()
@@ -246,14 +245,14 @@ report 50101 "Adacta Fixed Asset - List"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(DeprBookCode; DeprBookCode)
+                    field(DeprBookCode; DeprBookCodes)
                     {
                         ApplicationArea = FixedAssets;
                         Caption = 'Depreciation Book';
                         TableRelation = "Depreciation Book";
                         ToolTip = 'Specifies the code for the depreciation book to be included in the report or batch job.';
                     }
-                    field(PrintOnlyOnePerPage; PrintOnlyOnePerPage)
+                    field(PrintOnlyOnePerPage; PrintOnlyOnePerPages)
                     {
                         ApplicationArea = FixedAssets;
                         Caption = 'New Page per Asset';
@@ -269,9 +268,9 @@ report 50101 "Adacta Fixed Asset - List"
 
         trigger OnOpenPage()
         begin
-            if DeprBookCode = '' then begin
-                FASetup.Get;
-                DeprBookCode := FASetup."Default Depr. Book";
+            if DeprBookCodes = '' then begin
+                FASetup.Get();
+                DeprBookCodes := FASetup."Default Depr. Book";
             end;
         end;
     }
@@ -285,12 +284,12 @@ report 50101 "Adacta Fixed Asset - List"
         GeneralLedgerSetup: Record "General Ledger Setup";
         Dimension: Record Dimension;
     begin
-        DeprBook.Get(DeprBookCode);
-        FAFilter := "Fixed Asset".GetFilters;
-        DeprBookText := StrSubstNo('%1%2 %3', DeprBook.TableCaption, ':', DeprBookCode);
+        DeprBook.Get(DeprBookCodes);
+        FAFilter := "Fixed Asset".GetFilters();
+        DeprBookText := CopyStr(StrSubstNo('%1%2 %3', DeprBook.TableCaption(), ':', DeprBookCodes), 1, MaxStrLen(DeprBookText));
         GlobalDim1CodeCaption := '';
         GlobalDim2CodeCaption := '';
-        GeneralLedgerSetup.Get;
+        GeneralLedgerSetup.Get();
         if GeneralLedgerSetup."Global Dimension 1 Code" <> '' then begin
             Dimension.Get(GeneralLedgerSetup."Global Dimension 1 Code");
             GlobalDim1CodeCaption := Dimension."Code Caption";
@@ -304,8 +303,8 @@ report 50101 "Adacta Fixed Asset - List"
     var
         FASetup: Record "FA Setup";
         DeprBook: Record "Depreciation Book";
-        PrintOnlyOnePerPage: Boolean;
-        DeprBookCode: Code[10];
+        PrintOnlyOnePerPages: Boolean;
+        DeprBookCodes: Code[10];
         FAFilter: Text;
         ComponentFieldname: Text[100];
         BudgetedAssetFieldname: Text[100];

@@ -4,12 +4,12 @@ tableextension 50116 "GLEntryExtension" extends "G/L Entry"
     {
         field(50100; UserID; Code[50])
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
 
         field(50101; InsertDate; DateTime)
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
     }
 
@@ -19,7 +19,7 @@ tableextension 50116 "GLEntryExtension" extends "G/L Entry"
     begin
         if (userSetup.Get(UserID)) then begin
             UserID := userSetup."User ID";
-            InsertDate := CurrentDateTime;
+            InsertDate := CurrentDateTime();
         end;
     end;
 }

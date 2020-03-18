@@ -29,9 +29,8 @@ codeunit 50101 "WarehouseRecLine Subscriber"
     begin
         if (Rec."Source Type" = Database::"Purchase Line") then begin
             purchaseHeader.Get(Rec."Source Subtype", Rec."Source No.");
-            if (purchaseHeader."Ship-to Name" <> '') then begin
+            if (purchaseHeader."Ship-to Name" <> '') then
                 Rec."Shipping Name" := purchaseHeader."Ship-to Name";
-            end;
         end;
     end;
 

@@ -13,15 +13,13 @@ tableextension 50110 "SalesHeaderExtension" extends "Sales Header"
             var
                 customerStatus: Record "Customer Status";
             begin
-                if (customer.Get("Sell-to Customer No.")) then begin
+                if (customer.Get("Sell-to Customer No.")) then
                     if (customerStatus.Get(customer."Customer Status")) then begin
-
-                        if (customer.Blocked <> customer.Blocked::" ") then begin
+                        if (customer.Blocked <> customer.Blocked::" ") then
                             Message(customerStatusMessage, customer."No.", customerStatus.Description, customerStatus."Status warning message");
-                        end;
                         Clear(customer);
                     end;
-                end;
+
             end;
         }
 
@@ -33,19 +31,18 @@ tableextension 50110 "SalesHeaderExtension" extends "Sales Header"
             begin
                 if (customer.Get("Bill-to Customer No.")) then begin
 
-                    if (customerStatus.Get(customer."Customer Status")) then begin
-
-                        if (customer.Blocked <> customer.Blocked::" ") then begin
+                    if (customerStatus.Get(customer."Customer Status")) then
+                        if (customer.Blocked <> customer.Blocked::" ") then
                             Message(customerStatusMessage, customer."No.", customerStatus.Description, customerStatus."Status warning message");
-                        end;
-                        Clear(customer);
-                    end;
+
+                    Clear(customer);
+
                 end;
             end;
         }
     }
 
     var
-        customerStatusMessage: TextConst ENU = 'Customer %1 has status %2 - %3', HRV = 'Kupac %1 je u statusu %2 - %3';
         customer: Record Customer;
+        customerStatusMessage: TextConst ENU = 'Customer %1 has status %2 - %3', HRV = 'Kupac %1 je u statusu %2 - %3';
 }

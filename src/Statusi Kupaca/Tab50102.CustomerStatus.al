@@ -12,12 +12,12 @@ table 50102 "Customer Status"
         field(2; Description; Text[250])
         {
             Caption = 'Description';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(3; "Blocked Status"; Option)
         {
             Caption = 'Blocked Status';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
             OptionCaption = ' ,Ship,Invoice,All';
             OptionMembers = " ",Ship,Invoice,All;
             //TableRelation = Customer.Blocked;
@@ -25,10 +25,11 @@ table 50102 "Customer Status"
         field(4; "Status warning message"; Text[50])
         {
             Caption = 'Status warning message';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(5; "saadas"; Option)
         {
+            DataClassification = CustomerContent;
             OptionMembers = TextVar;
         }
     }

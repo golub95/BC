@@ -14,7 +14,7 @@ report 50100 "MyFirstReport"
         {
             DataItemTableView = sorting(number) where(Number = const(1));
 
-            column(DisplayLedgerInformation; DisplayLedgerInformation)
+            column(DisplayLedgerInformation; DisplayLedgerInformations)
             {
 
             }
@@ -72,8 +72,6 @@ report 50100 "MyFirstReport"
                 }
 
                 trigger OnAfterGetRecord()
-                var
-                    myInt: Integer;
                 begin
                     if "Customer No." = '32656565' then
                         Message('bla');
@@ -99,7 +97,7 @@ report 50100 "MyFirstReport"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(DisplayLedgerInformation; DisplayLedgerInformation)
+                    field(DisplayLedgerInformation; DisplayLedgerInformations)
                     {
                         ApplicationArea = All;
                         Caption = 'Show Ledgers';
@@ -111,8 +109,8 @@ report 50100 "MyFirstReport"
     }
 
     var
-        DisplayLedgerInformation: Boolean;
         CompanyInfo: Record "Company Information";
+        DisplayLedgerInformations: Boolean;
 
     trigger OnPreReport()
     begin

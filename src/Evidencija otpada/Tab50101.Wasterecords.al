@@ -1,6 +1,6 @@
 table 50101 "Waste records"
 {
-    DataClassification = ToBeClassified;
+    DataClassification = CustomerContent;
 
     fields
     {

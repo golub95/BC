@@ -4,13 +4,12 @@ tableextension 50100 "CustomerExtension" extends Customer
     {
         field(50100; "Customer Status"; Code[20])
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
             TableRelation = "Customer Status".Code;
 
             trigger OnValidate()
             var
                 customerStatus: Record "Customer Status";
-                Number: RecordRef;
             begin
                 customerStatus.Get("Customer Status");
                 Blocked := customerStatus."Blocked Status";

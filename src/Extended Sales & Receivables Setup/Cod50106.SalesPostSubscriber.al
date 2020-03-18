@@ -12,7 +12,7 @@ codeunit 50106 "Sales-PostSubscriber"
 
     begin
         //Dohvati polje sa settings-a i provjeri je li checked
-        if isParamInSettingsIsChecked and (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) then begin
+        if isParamInSettingsIsChecked() and (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) then begin
             //Dohvati Customer limit i usporedi sa cijenom na dokumentu. Ako je cijena doc > od limita na customeru izbaci poruku i nemoj knjižiti dokument
             Cust.GET(SalesHeader."Sell-to Customer No.");
             Cust.CalcFields("Balance (LCY)");
@@ -30,7 +30,7 @@ codeunit 50106 "Sales-PostSubscriber"
     var
         SalesSetup: Record "Sales & Receivables Setup";
     begin
-        SalesSetup.Get;
+        SalesSetup.Get();
         exit(SalesSetup."Credit Limit Block");
     end;
 }

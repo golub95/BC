@@ -9,7 +9,7 @@ tableextension 50104 "ExtendedWarehouseReceiptLine" extends "Warehouse Receipt L
 
         field(50101; "Shipping Name"; Text[100])
         {
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
             TableRelation = "Purchase Header"."Ship-to Name";
         }
     }
